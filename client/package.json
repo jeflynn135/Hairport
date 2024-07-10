@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "react-router-dom": "^6.24.1",
+    "react-timezone-select": "^3.2.5",
+    "react-toastify": "^10.0.5"
+  }
+}
