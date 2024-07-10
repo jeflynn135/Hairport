@@ -1,4 +1,5 @@
-//login and adduser are here, but we will need mutations for stuff
+//login and adduser are here, but we will need mutations for other stuff
+//add services mutation
 import {gql} from "@apollo/client";
 
 export const LOGIN_USER = gql`
