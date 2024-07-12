@@ -43,6 +43,19 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    editReview: async (parent, { reviewId }, context) => {
+        if (context.user) {
+            const updatedUser = await User.findOneAndUpdate(
+                {_id: context.user._id },
+                { $set: { "savedReviews.$[i].text": newReviewData.text,
+                    },
+                 },
+                { arrayFilters: [{ "i._id": { $eq: reviewId } }], new: true }
+            );
+            return updatedUser;
+        }
+        throw AuthenticationError;
+    },
     removeReview: async (parent, { reviewId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
