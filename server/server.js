@@ -52,9 +52,9 @@ const express = require("express"),
  
 // (B) SETTINGS - CHANGE TO YOUR OWN!
 // https://nodemailer.com/
-const portHTTP = 80,
+const portHTTP = 3000,
       mailSet = {
-        port : 25,
+        port : 3000,
         host : "localhost",
         /* auth: {
           user: EMAIL/USER,
@@ -63,7 +63,7 @@ const portHTTP = 80,
         tls: { rejectUnauthorized: false }
       },
       mailFrom = "sys@mail.com",
-      mailAdmin = "manager@mail.com",
+      mailAdmin = "jenna.flynn135@gmail.com",
       mailSubject = "Reservation",
       mailTxt = "Booking request received.";
  
@@ -104,7 +104,7 @@ app.post("/book", (req, res) => {
 });
  
 // (D3) THANK YOU
-app.get("/thankyou", (req, res) => res.sendFile(path.join(__dirname, "thank-you.html")));
+app.get("/thankyou", (req, res) => res.sendFile(path.join(__dirname, "thankyou.html")));
  
 // (E) START!
 app.listen(portHTTP);

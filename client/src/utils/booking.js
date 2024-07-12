@@ -20,7 +20,6 @@ function book () {
    
   // INIT
   window.onload = () => {
-    // MIN SELECTABLE DATE IS TODAY
     let datepick = document.getElementsByName("date")[0];
     datepick.min = new Date().toISOString().split("T")[0];
    
