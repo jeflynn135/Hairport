@@ -11,12 +11,12 @@ const LoginForm = () => {
         password: ""
     });
     const [validated] = useState(false);
-    const [showAlert, setAlert] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [login, {error}] = useMutation(LOGIN_USER);
     
     useEffect(() => {
         if (error) {
-            setAlert(true);
+            setShowAlert(true);
         } else {
             showAlert(false);
         }
