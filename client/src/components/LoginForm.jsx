@@ -18,13 +18,13 @@ const LoginForm = () => {
         if (error) {
             setShowAlert(true);
         } else {
-            showAlert(false);
+            setShowAlert(false);
         }
     }, [error]);
 
     const inputHandler = (event) => {
         const {name, value} = event.target;
-        setUserData({...addUser, [name]: value});
+        setUserData({...setUserData, [name]: value});
     };
 
     const submitHandler = async (event) => {
@@ -37,13 +37,19 @@ const LoginForm = () => {
     }
     try {
         const {data} = await login({
-            variables: {...addUser},
+            variables: {...setUserData},
         });
-        Auth.login(data.addUser.token);
+        Auth.login(data.login.token);
     } catch (error) {
         console.log(error);
+    }
     };
-    };
+
+    setUserData({
+      username: '',
+      email: '',
+      password: '',
+    });
     return (
         <>
       <Form noValidate validated={validated} onSubmit={submitHandler}>
