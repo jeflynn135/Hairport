@@ -3,7 +3,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {SignUpForm} from "./SignupForm";
-import {LogInForm} from "./LoginForm";
+import {LoginForm} from "./LoginForm";
 import {Auth} from "../utils/auth";
 //anything else we need from react bootstrap goes in here
 import {Container, Nav, Navbar, Modal, Tab} from "react-bootstrap";
@@ -12,7 +12,7 @@ import {Container, Nav, Navbar, Modal, Tab} from "react-bootstrap";
 //log in, log out, reviews, services?
 
 const appNavbar=()=> {
-  const [showModal, setShowModal]=useState(false)
+  const [showModal, setShowModal]=useState(false);
 
     return (
       <>
