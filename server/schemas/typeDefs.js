@@ -34,6 +34,7 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     saveReview(reviewData: ReviewData!): User
     removeReview(reviewId: ID!): User
+    editReview(reviewId: ID!): User
   }
 `;
 
