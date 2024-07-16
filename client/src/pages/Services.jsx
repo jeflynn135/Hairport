@@ -7,10 +7,10 @@ import Auth from "../utils/auth";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 
-// //bookstrap styling from react bookstrap????
-// //import items from local storage if using
+//bookstrap styling from react bookstrap????
+//import items from local storage if using
 
-// const AddService = () => {
-//     cosnt [loading, data] = useQuery(QUERY_ME);
-//     const 
-// }
+const AddService = () => {
+    cosnt [loading, data] = useQuery(QUERY_ME);
+    const 
+}
