@@ -1,22 +1,34 @@
-//will there be an array in models to list the services or how will this work?
-import { useState } from "react";
-import { useEffect } from "react";
-// import {useMutation} from "@apollo/client";
-// import {SERVICES_LIST} from "../utils/mutations";
-import Auth from "../utils/auth";
-// import {useQuery} from "@apollo/client";
-// import {QUERY_ME} from "../utils/queries";
-
-//bookstrap styling from react bookstrap????
-//import items from local storage if using
+import React from 'react';
+import Reviews from './Reviews';
 
 const Services = () => {
-    // cosnt [loading, data] = useQuery(QUERY_ME);
+  const services = [
+    { name: 'Wash and Style', duration: '45min' },
+    { name: 'Barber Cut/Pixie', duration: '30min' },
+    { name: 'Signature Cut (hair longer than a pixie)', duration: '45min' },
+    { name: 'Bang Trim', duration: '15min' },
+    { name: 'Beard Trim', duration: '15min' },
+    { name: 'Children’s Cut (age 10 or younger)', duration: '30min' },
+    { name: 'Blonding', duration: '4hr' },
+    { name: 'Color', duration: '3hr' },
+    { name: 'Root Retouch', duration: '2hr' },
+  ];
 
-    return (
-        <div className="">
-            <h1>Services Page</h1>
-        </div>
-    )
+  return (
+    <div>
+    <section className="services" role="region" aria-labelledby="services-heading">
+      <h2 id="services-heading">Our Services</h2>
+      <ul>
+        {services.map((service, index) => (
+          <li key={index}>
+            <span className="service-name">{service.name}</span> - 
+            <span className="service-duration">{service.duration}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <Reviews /> {/*reviews component*/}
+    </div>
+  );
 }
 export default Services
