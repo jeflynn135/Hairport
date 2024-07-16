@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import SignUpForm from "./SignupForm";
-// import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm";
 import Auth from "../utils/auth";
 //anything else we need from react bootstrap goes in here
 import { Container, Nav, Navbar, Modal, Tab } from "react-bootstrap";
 
-const appNavbar = () => {
+const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -54,7 +54,7 @@ const appNavbar = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="signup"
       >
-        <Tab.Container defaultActiveKey={"signup"}>
+        <Tab.Container defaultActiveKey="signup">
           <Modal.Header closeButton>
             <Modal.Title id="signup">
               <Nav variant="pills">
@@ -70,7 +70,7 @@ const appNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">
-                {/* <LoginForm handleModalClose={() => setShowModal(false)} /> */}
+                <LoginForm handleModalClose={() => setShowModal(false)} />
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
                 <SignUpForm handleModalClose={() => setShowModal(false)} />
@@ -83,4 +83,4 @@ const appNavbar = () => {
   );
 };
 
-export default appNavbar;
+export default AppNavbar;
