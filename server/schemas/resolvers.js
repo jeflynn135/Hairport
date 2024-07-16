@@ -8,6 +8,11 @@ const resolvers = {
         const userInfo = await User.findOne({ _id: context.user._id }).select('-__v -password');
 
         return userInfo;
+        // delete else when context working
+      } else {
+        const userInfo = await User.findOne({ _id: context.user._id }).select('-__v -password');
+
+        return userInfo;
       }
 
       throw AuthenticationError;

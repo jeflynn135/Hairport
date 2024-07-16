@@ -8,9 +8,9 @@ const typeDefs = `
   }
 
   type Review {
-    reviewId: ID!
-    user: [String]
+    user: String
     description: String
+    service: String
   }
 
   type Auth {
@@ -19,9 +19,9 @@ const typeDefs = `
   }
 
   input ReviewData {
-    authors: [String]
+    user: String
     description: String!
-    reviewId: String!
+    service: String!
   }
 
   type Query {
