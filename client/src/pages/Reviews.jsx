@@ -1,21 +1,54 @@
 import React, { useEffect, useState } from 'react';
+import { useQuery, useMutation, gql } from '@apollo/client';
+
+const GET_REVIEWS = gql`
+query GetReviews {
+    reviews {
+     id
+     text
+    }
+}`;
+
+const POST_REVIEW = gql`
+mutation PostReview($text: String!) {
+    postReview(text: $text){
+        id
+        text
+    }
+}`;
+
+const UPDATE_REVIEW = gql`
+mutation UpdateReview($id: ID!, $text: String!) {
+    updateReview(id: $id, text: $text) {
+        id
+        text
+    }
+}`;
+
+const DELETE_REVIEW = gql`
+mutation DeleteReview($id: ID!) {
+    deleteReview(id: $id)
+}`;
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState('');
+    const [editingComment, setEditingComment] = useState(null);
+    const [editingText, setEditingText] = useState('');
+    const { loading, error, data, refetch } = useQuery(GET_REVIEWS);
+    const [postReviewMutation] = useMutation(POST_REVIEW);
+    const [updateReviewMutation] = useMutation(UPDATE_REVIEW);
+    const [deleteReviewMutation] = useMutation(DELETE_REVIEW);
 
     useEffect(() => {
-        fetchReviews();
-    }, []);
+        if (data) {
+      setReviews(data.reviews);
+    }
+  }, [data]);
 
     const fetchReviews = async () => {
         try {
-            const response = await fetch(/* PLACEHOLDER ROUTE for fetching reviews */);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setReviews(data);
+            await refetch();
         } catch (error) {
             console.error('Error fetching reviews:', error);
         }
@@ -24,18 +57,11 @@ const Reviews = () => {
     //Posts a comment
     const postReview = async () => {
         try {
-            const response = await fetch(/* PLACEHOLDER ROUTE for posting a review */ {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ text: newReview }),
+            const { data } = await postReviewMutation({
+                variables: { text: newReview },
             });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const updatedReviews = await response.json();
-            setReviews(updatedReviews);
+            
+            setReviews([...reviews, data.postReview]);
 
             // Clear the new review input field
             setNewReview('');
@@ -47,19 +73,10 @@ const Reviews = () => {
     //updates comments
     const updateComment = async (id) => {
         try {
-            const response = await fetch(/*PLACEHOLDER ROUTE(add a comma before this bracket*/ {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ text: editingText }),
+            const { data } = await updateReviewMutation({
+                variables: { id, text: editingText },
             });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const updatedComment = await response.json();
-            console.log('Updated comment:', updatedComment);
-    
+
             // Updates state with new review data based on the id
             setReviews(reviews.map(review => review.id === id ? updatedComment : review));
             
@@ -74,16 +91,9 @@ const Reviews = () => {
     //Deletes Comments
     const deleteComment = async (id) => {
         try{
-            const response = await fetch(/*PLACEHOLDER ROUTE(add a comma before this bracket*/ {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+            await deleteReviewMutation({
+                variables: { id },
             });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
 
             console.log("Comment removed successfully");
             /*filters out deleted comments from the reviews */
