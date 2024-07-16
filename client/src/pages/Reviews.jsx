@@ -4,9 +4,9 @@ const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState('');
 
-    useEffect(() => {
-        fetchReviews();
-    }, []);
+    // useEffect(() => {
+    //     fetchReviews();
+    // }, []);
 
     const fetchReviews = async () => {
         try{
@@ -101,4 +101,12 @@ const Reviews = () => {
             console.error("Error removing comment:", error);
         }
     }
+
+    return(
+        <div>
+            <h1>Reviews Page</h1>
+        </div>
+    )
 };
+
+export default Reviews

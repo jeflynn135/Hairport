@@ -1,57 +1,55 @@
-import {useState} from "react";
-import { useEffect } from "react";
-import {useMutation} from "@apollo/client";
-import {LOGIN_USER} from "../utils/mutations";
+import { useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-import {Form, Button, Alert} from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 
 const LoginForm = () => {
-    const [userData, setUserData] = useState({
-        email: "",
-        password: ""
-    });
-    const [validated] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [login, {error}] = useMutation(LOGIN_USER);
-    
-    useEffect(() => {
-        if (error) {
-            setShowAlert(true);
-        } else {
-            setShowAlert(false);
-        }
-    }, [error]);
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [login, { error }] = useMutation(LOGIN_USER);
 
-    const inputHandler = (event) => {
-        const {name, value} = event.target;
-        setUserData({...setUserData, [name]: value});
-    };
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
 
-    const submitHandler = async (event) => {
-        event.preventDefault();
+  const inputHandler = (event) => {
+    const { name, value } = event.target;
+    setUserData({ ...setUserData, [name]: value });
+  };
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
 
     const form = event.currentTarget;
-    if (form.checkValidity()===false) {
-        event.preventDefault();
-        event.stopPropagation();
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
     }
     try {
-        const {data} = await login({
-            variables: {...setUserData},
-        });
-        Auth.login(data.login.token);
+      const { data } = await login({
+        variables: { ...setUserData },
+      });
+      Auth.login(data.login.token);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-    };
+  };
 
-    setUserData({
-      username: '',
-      email: '',
-      password: '',
-    });
-    return (
-        <>
+  setUserData({
+    email: "",
+    password: "",
+  });
+  return (
+    <>
       <Form noValidate validated={validated} onSubmit={submitHandler}>
         <Alert
           dismissible
@@ -61,7 +59,7 @@ const LoginForm = () => {
         >
           Something went wrong with your login credentials!
         </Alert>
-        <Form.Group className='mb-3'>
+        <Form.Group className="mb-3">
           <Form.Label htmlFor="email">Email</Form.Label>
           <Form.Control
             type="text"
@@ -76,7 +74,7 @@ const LoginForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className='mb-3'>
+        <Form.Group className="mb-3">
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
             type="password"
@@ -99,7 +97,7 @@ const LoginForm = () => {
         </Button>
       </Form>
     </>
-    );
+  );
 };
 
 export default LoginForm;
