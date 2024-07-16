@@ -52,3 +52,18 @@ service
 }
 }
 }`;
+
+export const EDIT_REVIEW=gql`
+mutation editReview($reviewId: ID!) {
+editReview(reviewId: $reviewId) {
+_id
+username
+email
+reviewCount
+savedReviews {
+user
+description
+service
+}
+}
+}`;
