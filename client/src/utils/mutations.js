@@ -25,8 +25,8 @@ username
 }`;
 
 export const SAVE_REVIEW =gql`
-mutation saveReview($reviewData: ReviewData) {
-saveReview(ReviewData: $ReviewData)
+mutation SaveReview($reviewData: ReviewData!) {
+  saveReview(reviewData: $reviewData)
 _id
 username
 email
@@ -36,34 +36,37 @@ user
 description
 service
 }
-}`;
+}
+`;
 
 export const REMOVE_REVIEW=gql`
 mutation removeReview($reviewId: ID!) {
-removeReview(reviewId: $reviewId) {
-_id
-username
-email
-reviewCount
-savedReviews {
-user
-description
-service
+  removeReview(reviewId: $reviewId) {
+    _id
+    username
+    email
+    reviewCount
+    savedReviews {
+      user
+      description
+      service
+    }
+  }
 }
-}
-}`;
+`;
 
 export const EDIT_REVIEW=gql`
-mutation editReview($reviewId: ID!) {
-editReview(reviewId: $reviewId) {
-_id
-username
-email
-reviewCount
-savedReviews {
-user
-description
-service
+mutation EditReview($reviewId: ID!) {
+  editReview(reviewId: $reviewId) {
+    _id
+    username
+    email
+    reviewCount
+    savedReviews {
+      user
+      description
+      service
+    }
+  }
 }
-}
-}`;
+`;
