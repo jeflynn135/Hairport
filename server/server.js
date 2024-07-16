@@ -27,10 +27,12 @@ app.use('/graphql', expressMiddleware(server, {
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
+  app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use(routes);
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  });
+}
 
 db.once('open', () => {
   app.listen(PORT, () => {
@@ -43,69 +45,69 @@ db.once('open', () => {
 // Booking
 // LOAD REQUIRED MODULES
 // npm i express nodemailer body-parser multer
-const express = require("express"),
-      bodyParser = require("body-parser"),
-      nodemailer = require("nodemailer"),
-      multer = require("multer"),
-      path = require("path");
+// const express = require("express"),
+//       bodyParser = require("body-parser"),
+//       nodemailer = require("nodemailer"),
+//       multer = require("multer"),
+//       path = require("path");
  
-// (B) SETTINGS - CHANGE TO YOUR OWN!
-// https://nodemailer.com/
-const portHTTP = 80,
-      mailSet = {
-        port : 25,
-        host : "localhost",
-        /* auth: {
-          user: EMAIL/USER,
-          pass: PASSWORD
-        },*/
-        tls: { rejectUnauthorized: false }
-      },
-      mailFrom = "sys@mail.com",
-      mailAdmin = "manager@mail.com",
-      mailSubject = "Reservation",
-      mailTxt = "Booking request received.";
+// // (B) SETTINGS - CHANGE TO YOUR OWN!
+// // https://nodemailer.com/
+// const portHTTP = 3000,
+//       mailSet = {
+//         port : 3000,
+//         host : "localhost",
+//         /* auth: {
+//           user: EMAIL/USER,
+//           pass: PASSWORD
+//         },*/
+//         tls: { rejectUnauthorized: false }
+//       },
+//       mailFrom = "sys@mail.com",
+//       mailAdmin = "jenna.flynn135@gmail.com",
+//       mailSubject = "Reservation",
+//       mailTxt = "Booking request received.";
  
-// (C) NODE MAILER & EXPRESS SERVER
-// const app = express(),
-      forms = multer();
-app.use("/assets", express.static(path.join(__dirname, "assets")));
-app.use(forms.array());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-const mailtransport = nodemailer.createTransport(mailSet);
+// // (C) NODE MAILER & EXPRESS SERVER
+// // const app = express(),
+//       forms = multer();
+// app.use("/assets", express.static(path.join(__dirname, "assets")));
+// app.use(forms.array());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// const mailtransport = nodemailer.createTransport(mailSet);
  
-// (D) EXPRESS HANDLERS
-// (D1) HOME PAGE - BOOKING FORM
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+// // (D) EXPRESS HANDLERS
+// // (D1) HOME PAGE - BOOKING FORM
+// app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
  
-// (D2) SEND BOOKING REQUEST VIA EMAIL
-app.post("/book", (req, res) => {
-  // (D2-1) MAIL MESSAGE
-  let msg = mailTxt + "<br>";
-  for (const [k, v] of Object.entries(req.body)) { msg += `${k} : ${v}<br>`; }
+// // (D2) SEND BOOKING REQUEST VIA EMAIL
+// app.post("/book", (req, res) => {
+//   // (D2-1) MAIL MESSAGE
+//   let msg = mailTxt + "<br>";
+//   for (const [k, v] of Object.entries(req.body)) { msg += `${k} : ${v}<br>`; }
  
-  // (D2-2) SEND
-  mailtransport.sendMail({
-    from: mailFrom,
-    to: mailAdmin,
-    subject: mailSubject,
-    html: `<p>${msg}</p>`
-  }, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.sendStatus(500);
-    } else {
-      console.log(req.body);
-      res.sendStatus(200);
-    }
-  });
-});
+//   // (D2-2) SEND
+//   mailtransport.sendMail({
+//     from: mailFrom,
+//     to: mailAdmin,
+//     subject: mailSubject,
+//     html: `<p>${msg}</p>`
+//   }, (error, info) => {
+//     if (error) {
+//       console.log(error);
+//       res.sendStatus(500);
+//     } else {
+//       console.log(req.body);
+//       res.sendStatus(200);
+//     }
+//   });
+// });
  
-// (D3) THANK YOU
-app.get("/thankyou", (req, res) => res.sendFile(path.join(__dirname, "thank-you.html")));
+// // (D3) THANK YOU
+// app.get("/thankyou", (req, res) => res.sendFile(path.join(__dirname, "thankyou.html")));
  
-// (E) START!
-app.listen(portHTTP);
+// // (E) START!
+// app.listen(portHTTP);
 
 startApolloServer();

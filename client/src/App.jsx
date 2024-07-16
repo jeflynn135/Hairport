@@ -6,7 +6,8 @@ import Navbar from "./components/Navbar";
 import {setContext} from "@apollo/client/link/context";
 
 //link to backend
-const backendLink = createHttpLink({uri: "graphql"})
+const httpLink = createHttpLink({uri: "/graphql"})
+
     const auth = setContext((__, {headers})=> {
         const token = localStorage.getItem("id_token")
         return {
@@ -28,10 +29,8 @@ const backendLink = createHttpLink({uri: "graphql"})
 //     };
 // });
 
-
 const client = new ApolloClient({
-    link: auth.concat(backendLink),
-    uri: "/graphql",
+    link: auth.concat(httpLink),
     cache: new InMemoryCache(),
 
 });
