@@ -2,63 +2,46 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 const LoginForm = () => {
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-  });
-  const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [userData, setUserData] = useState({ email: "", password: ""});
+
+ 
   const [login, { error }] = useMutation(LOGIN_USER);
 
   useEffect(() => {
     if (error) {
-      setShowAlert(true);
-    } else {
-      setShowAlert(false);
-    }
-  }, [error]);
+      console.log(error)
+}}, [error]);
 
   const inputHandler = (event) => {
     const { name, value } = event.target;
-    setUserData({ ...setUserData, [name]: value });
+    setUserData({ ...userData, [name]: value });
   };
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  
     try {
       const { data } = await login({
-        variables: { ...setUserData },
+        variables: { ...userData },
       });
       Auth.login(data.login.token);
+      setUserData({
+        email: "",
+        password: "",
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  setUserData({
-    email: "",
-    password: "",
-  });
+
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={submitHandler}>
-        <Alert
-          dismissible
-          onClose={() => showAlert(false)}
-          show={showAlert}
-          variant="danger"
-        >
-          Something went wrong with your login credentials!
-        </Alert>
+      <Form onSubmit={submitHandler}>
+      
         <Form.Group className="mb-3">
           <Form.Label htmlFor="email">Email</Form.Label>
           <Form.Control
