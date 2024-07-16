@@ -24,3 +24,31 @@ username
 }
 }`;
 
+export const SAVE_REVIEW =gql`
+mutation saveReview($reviewData: ReviewData) {
+saveReview(ReviewData: $ReviewData)
+_id
+username
+email
+reviewCount
+savedReviews{
+user
+description
+service
+}
+}`;
+
+export const REMOVE_REVIEW=gql`
+mutation removeReview($reviewId: ID!) {
+removeReview(reviewId: $reviewId) {
+_id
+username
+email
+reviewCount
+savedReviews {
+user
+description
+service
+}
+}
+}`;
