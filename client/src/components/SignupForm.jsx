@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import {useMutation} from "@apollo/client";
 import {ADD_USER} from "../utils/mutations";
 import Auth from "../utils/auth";
-import {Form, Button, Alert} from "react-bootstrap";
+import {Form, Button} from "react-bootstrap";
 
 const SignUpForm = () => {
     const [userData, setUserData] = useState({
@@ -12,17 +12,14 @@ const SignUpForm = () => {
         password: "",
     });
 
-    const [validated] = useState(false);
-    const [showAlert, setAlert] = useState(false);
+    // const [validated] = useState(false);
+    // const [showAlert, setAlert] = useState(false);
     const [addUser, {error}] = useMutation(ADD_USER);
 
-    useEffect(()=> {
-        if (error) {
-            setAlert(true);
-        } else {
-            setAlert(false);
-        }
-    }, [error]);
+    useEffect(() => {
+      if (error) {
+        console.log(error)
+  }}, [error]);
 
     const inputHandler = async (event) => {
         const {name, value} = event.target;
@@ -32,11 +29,8 @@ const SignUpForm = () => {
     const submitHandler =async (event) => {
         event.preventDefault();
 
-    const form = event.currentTarget;
-    if (form.checkValidity()=== false) {
-        event.preventDefault();
-        event.stopPropagation();
-    } try {
+  
+     try {
         const {data} = await addUser({
             variables: {...userData},
         });
@@ -56,16 +50,16 @@ return (
     //idk what is all this shit
     <>
   
-      <Form noValidate validated={validated} onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler}>
      
-        <Alert
+        {/* <Alert
           dismissible
           onClose={() => showAlert(false)}
           show={showAlert}
           variant="danger"
         >
           Something went wrong with your signup!
-        </Alert>
+        </Alert> */}
 
         <Form.Group className='mb-3'>
           <Form.Label htmlFor="username">Username</Form.Label>

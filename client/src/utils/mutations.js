@@ -24,3 +24,49 @@ username
 }
 }`;
 
+export const SAVE_REVIEW =gql`
+mutation SaveReview($reviewData: ReviewData!) {
+  saveReview(reviewData: $reviewData)
+_id
+username
+email
+reviewCount
+savedReviews{
+user
+description
+service
+}
+}
+`;
+
+export const REMOVE_REVIEW=gql`
+mutation removeReview($reviewId: ID!) {
+  removeReview(reviewId: $reviewId) {
+    _id
+    username
+    email
+    reviewCount
+    savedReviews {
+      user
+      description
+      service
+    }
+  }
+}
+`;
+
+export const EDIT_REVIEW=gql`
+mutation EditReview($reviewId: ID!) {
+  editReview(reviewId: $reviewId) {
+    _id
+    username
+    email
+    reviewCount
+    savedReviews {
+      user
+      description
+      service
+    }
+  }
+}
+`;
