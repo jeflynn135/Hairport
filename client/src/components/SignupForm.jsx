@@ -26,7 +26,7 @@ const SignUpForm = () => {
 
     const inputHandler = async (event) => {
         const {name, value} = event.target;
-        setUserData({...addUser, [name]: value});
+        setUserData({...userData, [name]: value});
     };
     
     const submitHandler =async (event) => {
@@ -38,17 +38,18 @@ const SignUpForm = () => {
         event.stopPropagation();
     } try {
         const {data} = await addUser({
-            variables: {...addUser},
+            variables: {...userData},
         });
-        Auth.login(data.login.token);
+        Auth.login(data.addUser.token);
     } catch (error) {
         console.log(error);
-    }
-    addUser({
+    } finally {
+      setUserData({
         username: "",
         email: "",
         password: "",
     });
+    }
     };
 
 return (
@@ -111,13 +112,13 @@ return (
           </Form.Control.Feedback>
         </Form.Group>
         <Button
-          disabled={
-            !(
-              userData.username &&
-              userData.email &&
-              userData.password
-            )
-          }
+          // disabled={
+          //   !(
+          //     userData.username &&
+          //     userData.email &&
+          //     userData.password
+          //   )
+          // }
           type="submit"
           variant="success"
         >

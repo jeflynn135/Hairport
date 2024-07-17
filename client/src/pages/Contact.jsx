@@ -7,7 +7,7 @@ function Contact() {
     },
     {
       name: "fa-solid fa-phone",
-      link: "9289193051",
+      link: "tel:+09289193051",
     },
   ];
 
@@ -18,7 +18,7 @@ function Contact() {
     },
     {
       name: "fa-solid fa-phone",
-      link: "9289193051",
+      link: "tel:+09289193051",
     },
   ];
   const iconsE = [
@@ -28,12 +28,12 @@ function Contact() {
     },
     {
       name: "fa-solid fa-phone",
-      link: "9289193051",
+      link: "tel:+09289193051",
     },
   ];
 
   return (
-    <div>
+    <div className="contact-main">
       <div className="contact-card">
         <h1>Jenna</h1>
         <h5>Specializes in blonding and color.</h5>
