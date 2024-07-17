@@ -27,11 +27,14 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
+      console.log(user)
       if (!user) {
+        console.log("no user")
         throw AuthenticationError;
       }
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
+        console.log("bad password")
         throw AuthenticationError;
       }
       const token = signToken(user);
