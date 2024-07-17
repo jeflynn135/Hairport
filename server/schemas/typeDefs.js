@@ -8,6 +8,7 @@ const typeDefs = `
   }
 
   type Review {
+  _id: ID
     user: String
     description: String
     service: String
@@ -33,8 +34,8 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     saveReview(reviewData: ReviewData!): User
-    removeReview(reviewId: ID!): User
-    editReview(reviewId: ID!): User
+    removeReview(reviewId: ID!): Review
+    editReview(reviewId: ID!, text: String!): Review
   }
 `;
 

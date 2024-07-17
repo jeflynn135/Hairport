@@ -1,34 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
-
-const GET_REVIEWS = gql`
-query GetReviews {
-    reviews {
-     id
-     text
-    }
-}`;
-
-const POST_REVIEW = gql`
-mutation PostReview($text: String!) {
-    postReview(text: $text){
-        id
-        text
-    }
-}`;
-
-const UPDATE_REVIEW = gql`
-mutation UpdateReview($id: ID!, $text: String!) {
-    updateReview(id: $id, text: $text) {
-        id
-        text
-    }
-}`;
-
-const DELETE_REVIEW = gql`
-mutation DeleteReview($id: ID!) {
-    deleteReview(id: $id)
-}`;
+import { POST_REVIEW, UPDATE_REVIEW, DELETE_REVIEW, GET_REVIEWS } from '../utils/mutations';
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
