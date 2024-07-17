@@ -4,14 +4,15 @@ import React from 'react';
 const Services = () => {
     const services = [
         { name: 'Wash and Style', duration: '45min', description: '$30', src: '/wash-2.jpg'},
-        { name: 'Barber Cut/Pixie', duration: '30min', description: '$50', src: '/barber.jpg' },
-        { name: 'Signature Cut (longer than a pixie)', duration: '45min', description: '$50', src: '/long-cut.jpg' },
+        { name: 'Barber Cut/Pixie', duration: '30min', description: '$40', src: '/barber.jpg' },
+        { name: 'Signature Cut (longer than a pixie)', duration: '45min', description: '$50', src: '/cut.jpg' },
         { name: 'Bang Trim', duration: '15min', description: '$20', src: '/bangs.jpg' },
         { name: 'Beard Trim', duration: '15min', description: '$20', src: '/beard-2.jpg' },
         { name: 'Children’s Cut (age 10 or younger)', duration: '30min', description: '$40', src: '/kids.jpg' },
         { name: 'Blonding', duration: '4hr', description: '$100+', src: '/blonde.jpg' },
-        { name: 'Color', duration: '3hr', description: '$75+', src: '/color-2.jpg' },
+        { name: 'Color', duration: '3hr', description: '$75+', src: '/long-cut.jpg' },
         { name: 'Root Retouch', duration: '2hr', description: '$50', src: '/root.jpg' },
+        { name: 'Perm', duration: '1.5hr', description: '$75', src: '/perm-2.jpg' },
     ];
 
     return (
