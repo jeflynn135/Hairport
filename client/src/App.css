@@ -1,3 +1,15 @@
+.contact-main {
+    padding-left: 20px;
+}
+
+.banner {
+    background-image: url("/salon-banner.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+}
+
 .icon {
   height: 50px;
   display: flex;

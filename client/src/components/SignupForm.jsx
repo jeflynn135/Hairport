@@ -35,16 +35,16 @@ const SignUpForm = () => {
             variables: {...userData},
         });
         Auth.login(data.addUser.token);
-        setUserData({
-          username: "",
-          email: "",
-          password: "",
-     
-      });
     } catch (error) {
         console.log(error);
+    } finally {
+      setUserData({
+        username: "",
+        email: "",
+        password: "",
+    });
     }
-  };
+    };
 
 return (
     //idk what is all this shit
@@ -106,13 +106,13 @@ return (
           </Form.Control.Feedback>
         </Form.Group>
         <Button
-          disabled={
-            !(
-              userData.username &&
-              userData.email &&
-              userData.password
-            )
-          }
+          // disabled={
+          //   !(
+          //     userData.username &&
+          //     userData.email &&
+          //     userData.password
+          //   )
+          // }
           type="submit"
           variant="success"
         >
