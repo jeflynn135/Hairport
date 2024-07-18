@@ -27,15 +27,16 @@ const typeDefs = `
 
   type Query {
     me: User
+    reviews: [Review]
   }
 
   type Mutation {
 
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    saveReview(reviewData: ReviewData!): User
+    saveReview(reviewData: ReviewData!): Review
     removeReview(reviewId: ID!): Review
-    editReview(reviewId: ID!, text: String!): Review
+    editReview(reviewId: ID!, description: String!, userId: ID!): Review
   }
 `;
 
