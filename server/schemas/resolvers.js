@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Review } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -17,6 +17,9 @@ const resolvers = {
 
       throw AuthenticationError;
     },
+    reviews: async(parent, args, context) => {
+      return Review.find()
+    }
   },
 
   Mutation: {
@@ -42,23 +45,24 @@ const resolvers = {
     },
     saveReview: async (parent, { reviewData }, context) => {
       if (context.user) {
+        const review = await Review.create(reviewData)
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedReviews: reviewData } },
+          { $push: { savedReviews: review._id } },
           { new: true }
         );
-        return updatedUser;
+        return review;
       }
       throw AuthenticationError;
     },
-    editReview: async (parent, { reviewId }, context) => {
-        if (context.user) {
-            const updatedUser = await User.findOneAndUpdate(
-                {_id: context.user._id },
-                { $set: { "savedReviews.$[i].text": newReviewData.text,
+    editReview: async (parent, { reviewId, description, userId }, context) => {
+        if (context.user._id === userId) {
+            const updatedUser = await Review.findOneAndUpdate(
+                {_id: reviewId },
+                { $set: { description: description
                     },
                  },
-                { arrayFilters: [{ "i._id": { $eq: reviewId } }], new: true }
+                { new: true }
             );
             return updatedUser;
         }
@@ -66,12 +70,13 @@ const resolvers = {
     },
     removeReview: async (parent, { reviewId }, context) => {
       if (context.user) {
+        const review = await Review.findByIdAndDelete(reviewId)
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { savedReviews: { reviewId } } },
           { new: true }
         );
-        return updatedUser;
+        return review;
       }
       throw AuthenticationError;
     },

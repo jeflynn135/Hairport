@@ -15,3 +15,12 @@ export const QUERY_ME = gql`
   }
   }
 `;
+export const QUERY_REVIEWS = gql`
+query reviews {
+  reviews {
+    _id
+    description
+    service
+    user
+  }
+}`

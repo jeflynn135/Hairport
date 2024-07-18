@@ -24,85 +24,26 @@ username
 }
 }`;
 
-// export const SAVE_REVIEW =gql`
-// mutation SaveReview($reviewData: ReviewData!) {
-//   saveReview(reviewData: $reviewData)
-// _id
-// username
-// email
-// reviewCount
-// savedReviews{
-// user
-// description
-// service
-// }
-// }
-// `;
-
-// export const REMOVE_REVIEW=gql`
-// mutation removeReview($reviewId: ID!) {
-//   removeReview(reviewId: $reviewId) {
-//     _id
-//     username
-//     email
-//     reviewCount
-//     savedReviews {
-//       user
-//       description
-//       service
-//     }
-//   }
-// }
-// `;
-
-// export const EDIT_REVIEW=gql`
-// mutation EditReview($reviewId: ID!) {
-//   editReview(reviewId: $reviewId) {
-//     _id
-//     username
-//     email
-//     reviewCount
-//     savedReviews {
-//       user
-//       description
-//       service
-//     }
-//   }
-// }
-// `;
-export const GET_REVIEWS = gql`
-query GetReviews {
-    reviews {
-     _id
-     text
-    }
-}`;
 
 export const POST_REVIEW = gql`
-mutation SaveReview($reviewData: ReviewData!) {
+mutation saveReview($reviewData: ReviewData!) {
     saveReview(reviewData: $reviewData) {
-        _id
-        username
-        email
-        reviewCount
-        savedReviews {
-            user
-            description
-            service
-            _id
-        }
+      _id
+      user
+      description
+      service
     }
-}`;
+  }`;
 
 export const UPDATE_REVIEW = gql`
-mutation EditReview($reviewId: ID!, $text: String!) {
-    editReview(reviewId: $reviewId, text: $text) {
-        _id
-        user
-        description
-        service
+mutation editReview($reviewId: ID!, $description: String!, $userId: ID!) {
+    editReview(reviewId: $reviewId, description: $description, userId: $userId) {
+      _id
+      user
+      description
+      service
     }
-}`;
+  }`;
 
 export const DELETE_REVIEW = gql`
 mutation RemoveReview($reviewId: ID!) {
