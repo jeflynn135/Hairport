@@ -73,7 +73,7 @@ username
 export const GET_REVIEWS = gql`
 query GetReviews {
     reviews {
-     id
+     _id
      text
     }
 }`;
@@ -89,6 +89,7 @@ mutation SaveReview($reviewData: ReviewData!) {
             user
             description
             service
+            _id
         }
     }
 }`;
