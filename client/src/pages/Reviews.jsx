@@ -104,10 +104,11 @@ const Reviews = () => {
 
     const renderReviews = () => {
         return reviews.map(review => (
+            <div className='review-page px-4'>
             <div key={review._id} className="review-item card col-sm-12 col-md-4 m-1">
                 <div className='card-body'>
                    <p>{review.description}</p>
-                   <p>service provided: {review.service}</p>
+                   <p>Service Provided: {review.service}</p>
                    {/*delete button*/}
                 <button className="btn btn-primary" onClick={() => deleteComment(review._id)}>Delete</button>
                 {/*edit button*/}
@@ -128,6 +129,7 @@ const Reviews = () => {
                     </form>
                 )}
                 </div>
+            </div>
             </div>
         ));
     };
