@@ -2,7 +2,7 @@
 
 ## Description
 
-With many young people unwilling to make phone calls, we wanted to provide a way to schedule appointments for their favorite cosmetology service online. Users can choose what service they want and book it with a provider of that service. 
+With many young people unwilling to make phone calls, we wanted to provide a way to schedule appointments for their favorite cosmetology service online. Users can choose what service they want and book it with a provider of that service. Then, they can leave a review of the service for other users to see.  
 
 
 ## Usage
