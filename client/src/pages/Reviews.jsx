@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { POST_REVIEW, UPDATE_REVIEW, DELETE_REVIEW } from '../utils/mutations';
 import { QUERY_REVIEWS } from '../utils/queries';
-import AuthService from "../utils/auth"
+import AuthService from "../utils/auth";
+import {Form, Button} from "react-bootstrap"
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]/*{ description:"", service:""}*/);
@@ -135,26 +136,32 @@ const Reviews = () => {
     };
 
     return (
+        <Form>
+            <Form.Group className="mb-3" controlId="reviewForm">
         <div className="reviews-container">
-            <h2>Customer Reviews</h2>
+            <Form.Label><h2>Customer Reviews</h2></Form.Label>
+           
             <div className="reviews-list row">
                 {renderReviews()}
             </div>
             <div className="new-review">
-                <textarea
+                <Form.Control className="w-50" as="textarea" rows={5}
                     value={newReview.description}
                     onChange={(e) => setNewReview({ ...newReview, description: e.target.value })}
                     placeholder="Write a new review..."
-                />
+                    />
                  <input
                     type="text"
                     value={newReview.service}
                     onChange={(e) => setNewReview({ ...newReview, service: e.target.value })}
                     placeholder="Service"
                 />
-                <button onClick={postReview}>Post Review</button>
+                
+                <Button variant="primary" type="submit" onClick={postReview}>Post Review</Button>
             </div>
         </div>
+        </Form.Group>
+        </Form>
     );
 };
 
